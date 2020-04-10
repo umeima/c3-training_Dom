@@ -1,24 +1,26 @@
-// Séléctionner les aiguilles de montre
-const AIGUILLEHR = document.querySelector("#hour");
-const AIGUILLEMIN = document.querySelector("#minute");
-const AIGUILLESEC = document.querySelector("#second");
-
-//Extraire l'heure actuel à l'aide de l'objet Date()
-
-
-//Ajouter l'heure , minite , seconde  dans des varaiables
+// Constantes qui ne changeront pas à travers le script
+// #hour - id cible pour l'aiguille des heures dans le svg
+const HOURHAND = document.querySelector("#hour");
+const MINUTEHAND = document.querySelector("#minute");
+const SECONDHAND = document.querySelector("#second");
 
 
+function run_the_clock(){
+  var date = new Date();
+  let hr = date.getHours();
+  let min = date.getMinutes();
+  let sec = date.getSeconds();
+  console.log("Hour: "+hr+ " Minute: "+ min + " Second: "+ sec);
 
-// Calculer de degré de mouvement de l'aiguille heure, de l'aiguille minute, de l'aiguille seconde
-// Hint : Tous les aiguilles doivent se déplacer chaque second selon un degré
+  let hrPosition = hr*360/12 + ((min * 360/60)/12) ;
+  let minPosition = (min * 360/60) + (sec* 360/60)/60;
+  let secPosition = sec * 360/60;
 
-
-// Déplacer les aiguilles 
-function demarrerLaMontre() {
-
-
-
+ // Ensuite, nous devons appliquer ces nombres sous forme de degrés dans les styles en ligne pour les transformer sur chacun des objets.
+  HOURHAND.style.transform = "rotate(" + hrPosition + "deg)";
+  MINUTEHAND.style.transform = "rotate(" + minPosition + "deg)";
+  SECONDHAND.style.transform = "rotate(" + secPosition + "deg)";
 }
-// Exercuter la fonction chaque second
-var interval = setInterval(demarrerLaMontre, 1000);
+
+
+var interval = setInterval(run_the_clock, 1000);
